@@ -3,18 +3,18 @@ import Image from "next/image";
 export default function Home() {
   const hashtags = [
     "#허원석",
-    "#대학생",
-    "#바이브코딩",
+    "#웹개발자",
+    "#Frontend",
+    "#React",
     "#NextJS",
-    "#웹개발",
-    "#성장중🌱",
+    "#성장하는개발자🌱",
   ];
 
   const links = [
     {
       title: "GitHub",
       description: "프로젝트와 코드가 모여있는 저장소",
-      href: "https://github.com",
+      href: "https://github.com/gjdnjstjr",
       iconBg: "bg-zinc-900 text-white dark:bg-white dark:text-zinc-950",
       badge: "Projects",
       icon: (
@@ -105,7 +105,7 @@ export default function Home() {
           허원석
         </h1>
         <p className="mt-1 text-sm font-medium text-indigo-600 dark:text-indigo-400">
-          Heo Wonseok
+          Frontend & Web Developer
         </p>
 
         {/* Hashtags Section */}
@@ -123,7 +123,7 @@ export default function Home() {
         {/* Bio */}
         <div className="mt-6 px-4 py-3.5 rounded-2xl bg-zinc-50/80 dark:bg-zinc-800/40 border border-zinc-100 dark:border-zinc-800 w-full">
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
-            ✨ 안녕하세요! <strong className="font-semibold text-zinc-900 dark:text-zinc-100">바이브 코딩</strong>을 배우고 있는 대학생입니다.
+            💡 아이디어를 코드로 실현하고 더 나은 사용자 경험을 고민하는 <strong className="font-semibold text-zinc-900 dark:text-zinc-100">개발자</strong>입니다. 새로운 기술을 탐구하고 꾸준히 성장하는 과정을 즐깁니다.
           </p>
         </div>
 
