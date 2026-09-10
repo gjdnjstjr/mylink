@@ -5,14 +5,24 @@ import { useState } from "react";
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
+  const [messageInput, setMessageInput] = useState("");
+  const [chatMessages, setChatMessages] = useState([
+    {
+      user: "Wonseok",
+      tag: "DEV",
+      time: "오늘 오후 4:20",
+      avatar: "/avatar.jpg",
+      text: "✨ 안녕하세요! 바이브 코딩과 Next.js로 빠르고 유려한 웹을 만드는 프론트엔드 개발자 허원석입니다. 편하게 둘러보세요!",
+    },
+  ]);
 
   const handleShare = async () => {
     if (typeof window !== "undefined") {
       try {
         if (navigator.share) {
           await navigator.share({
-            title: "허원석 | Frontend Developer",
-            text: "허원석의 프로필 페이지입니다.",
+            title: "허원석 | Vibe Coder & Frontend Developer",
+            text: "Welcome to Wonseok's Discord-styled Portfolio & Link Platform",
             url: window.location.href,
           });
         } else {
@@ -21,248 +31,435 @@ export default function Home() {
           setTimeout(() => setCopied(false), 2000);
         }
       } catch (err) {
-        console.error("공유 실패:", err);
+        console.error("공유 에러:", err);
       }
     }
   };
 
-  const hashtags = [
-    "#허원석",
-    "#웹개발자",
-    "#Frontend",
-    "#React",
-    "#NextJS",
-    "#TypeScript",
-    "#성장하는개발자🌱",
-  ];
-
-  const techStacks = [
-    { name: "React", bg: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-200/50 dark:border-cyan-800/40" },
-    { name: "Next.js", bg: "bg-zinc-500/10 text-zinc-800 dark:text-zinc-200 border-zinc-200/60 dark:border-zinc-700/40" },
-    { name: "TypeScript", bg: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200/50 dark:border-blue-800/40" },
-    { name: "Tailwind CSS", bg: "bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-200/50 dark:border-teal-800/40" },
-  ];
-
-  const links = [
-    {
-      title: "GitHub 저장소",
-      subtitle: "@gjdnjstjr",
-      description: "프로젝트 소스 코드와 커밋 기록을 확인할 수 있습니다.",
-      href: "https://github.com/gjdnjstjr",
-      iconBg: "bg-zinc-900 text-white dark:bg-white dark:text-zinc-950",
-      badge: "GitHub",
-      badgeColor: "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
-      icon: (
-        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "기술 블로그",
-      subtitle: "Learning Log & Dev Notes",
-      description: "배운 지식과 개발 경험을 정리하고 기록하는 공간입니다.",
-      href: "https://velog.io",
-      iconBg: "bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-emerald-500/20",
-      badge: "Blog",
-      badgeColor: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
-      icon: (
-        <svg
-          className="w-5 h-5 sm:w-6 sm:h-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Contact & 커피챗",
-      subtitle: "contact@example.com",
-      description: "프로젝트 협업 제안이나 질문은 언제든 환영합니다.",
-      href: "mailto:contact@example.com",
-      iconBg: "bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-blue-500/20",
-      badge: "Email",
-      badgeColor: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
-      icon: (
-        <svg
-          className="w-5 h-5 sm:w-6 sm:h-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-  ];
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!messageInput.trim()) return;
+    setChatMessages((prev) => [
+      ...prev,
+      {
+        user: "Visitor",
+        tag: "GUEST",
+        time: "방금 전",
+        avatar: "/avatar.jpg",
+        text: messageInput,
+      },
+    ]);
+    setMessageInput("");
+  };
 
   return (
-    <main className="min-h-screen min-h-dvh flex items-center justify-center bg-gradient-to-br from-indigo-50/80 via-white to-sky-50/80 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 px-3 sm:px-6 md:px-8 py-6 sm:py-12 md:py-16 selection:bg-indigo-500 selection:text-white relative">
-      {/* Decorative ambient background glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 flex items-center justify-center">
-        <div className="w-[320px] sm:w-[500px] md:w-[650px] h-[320px] sm:h-[500px] md:h-[650px] bg-indigo-300/30 dark:bg-indigo-900/15 blur-[90px] sm:blur-[130px] rounded-full"></div>
-        <div className="absolute -top-20 -right-20 w-60 sm:w-80 h-60 sm:h-80 bg-sky-300/25 dark:bg-sky-900/15 blur-[80px] rounded-full"></div>
-        <div className="absolute -bottom-20 -left-20 w-60 sm:w-80 h-60 sm:h-80 bg-purple-300/25 dark:bg-purple-900/15 blur-[80px] rounded-full"></div>
+    <div className="min-h-screen bg-[#0a0d3a] text-white font-sans antialiased selection:bg-[#ec48bd] selection:text-white relative overflow-x-hidden">
+      {/* Dynamic Animated Gradient Mesh Background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#5865f2]/30 rounded-full blur-[140px] animate-pulse"></div>
+        <div className="absolute top-1/3 -right-40 w-[650px] h-[650px] bg-[#ec48bd]/25 rounded-full blur-[160px]"></div>
+        <div className="absolute -bottom-40 left-1/4 w-[700px] h-[700px] bg-[#8b5cf6]/20 rounded-full blur-[150px]"></div>
       </div>
 
-      {/* Main Responsive Container */}
-      <div className="w-full max-w-[440px] sm:max-w-xl md:max-w-2xl bg-white/85 dark:bg-zinc-900/85 backdrop-blur-2xl rounded-3xl sm:rounded-[2rem] shadow-xl sm:shadow-2xl shadow-indigo-100/40 dark:shadow-black/50 border border-white/80 dark:border-zinc-800/80 p-5 sm:p-8 md:p-10 flex flex-col items-center text-center transition-all">
-        
-        {/* Top Action Bar (Share Button) */}
-        <div className="w-full flex justify-end mb-1 sm:mb-2">
+      {/* 1. TOP NAVIGATION (nav-bar, Deep Indigo + Electric Green CTA) */}
+      <header className="sticky top-0 z-50 bg-[#0a0d3a]/90 backdrop-blur-xl border-b border-[#1e2353]/80 px-4 sm:px-8 lg:px-16 py-4 flex items-center justify-between">
+        {/* Logo / Brand Mark */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-[#5865f2] flex items-center justify-center shadow-[0_4px_20px_rgba(88,101,242,0.5)]">
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+            </svg>
+          </div>
+          <span className="font-black tracking-tight text-xl sm:text-2xl text-white uppercase">
+            WONSEOK<span className="text-[#35ed7e]">.GG</span>
+          </span>
+        </div>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8 text-[15px] font-bold text-white/90">
+          <a href="#about" className="hover:text-[#35ed7e] transition-colors">Profile</a>
+          <a href="#projects" className="hover:text-[#35ed7e] transition-colors">Projects</a>
+          <a href="#chat" className="hover:text-[#35ed7e] transition-colors">Voice & Chat</a>
+          <a href="#stats" className="hover:text-[#35ed7e] transition-colors">Stats</a>
+          <a href="https://velog.io" target="_blank" rel="noreferrer" className="hover:text-[#ec48bd] transition-colors">Tech Blog ↗</a>
+        </nav>
+
+        {/* Header Action Buttons */}
+        <div className="flex items-center gap-3">
           <button
             onClick={handleShare}
-            aria-label="프로필 링크 공유"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-zinc-600 dark:text-zinc-400 bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-zinc-200/80 dark:hover:bg-zinc-700/80 transition-colors border border-zinc-200/50 dark:border-zinc-700/40 cursor-pointer"
+            className="hidden sm:inline-flex px-4 py-2 rounded-full bg-[#1e2353] hover:bg-[#2e3782] text-white text-xs font-bold transition-all cursor-pointer"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            <span>{copied ? "링크 복사됨! ✨" : "공유하기"}</span>
+            {copied ? "COPIED! ✨" : "SHARE LINK"}
           </button>
+          <a
+            href="mailto:contact@example.com"
+            className="px-5 py-2.5 rounded-full bg-[#35ed7e] hover:bg-[#2fd972] active:scale-95 text-[#000000] font-black text-xs sm:text-sm uppercase tracking-wide transition-all shadow-[0_4px_20px_rgba(53,237,126,0.4)]"
+          >
+            GET IN TOUCH
+          </a>
+        </div>
+      </header>
+
+      {/* 2. HERO SECTION: ALL-CAPS LOUD HEADLINE & PLAYFUL 3D AVATAR */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pt-12 sm:pt-20 pb-16 sm:pb-28 flex flex-col items-center text-center">
+        {/* Tagline Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#ec48bd]/20 border border-[#ec48bd]/40 text-[#ec48bd] font-extrabold text-xs sm:text-sm uppercase tracking-wider mb-6 animate-bounce">
+          <span>🚀 VIBE CODING ACTIVATED</span>
         </div>
 
-        {/* Character Avatar Section */}
-        <div className="relative mb-4 sm:mb-5 group">
-          <div className="absolute -inset-1.5 sm:-inset-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white dark:border-zinc-800 shadow-lg">
-            <Image
-              src="/avatar.jpg"
-              alt="허원석 프로필 캐릭터"
-              width={128}
-              height={128}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              priority
-            />
-          </div>
-          {/* Online status indicator */}
-          <span className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 w-4 h-4 sm:w-5 sm:h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full shadow-sm flex items-center justify-center">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-ping opacity-75"></span>
-          </span>
-        </div>
-
-        {/* Name & Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-50 tracking-tight">
-          허원석
+        {/* All-Caps Display-XL Headline */}
+        <h1 className="text-[44px] sm:text-[68px] lg:text-[88px] font-black leading-[0.98] tracking-tight text-white uppercase max-w-5xl">
+          IMAGINE A <span className="bg-gradient-to-r from-[#5865f2] via-[#ec48bd] to-[#35ed7e] bg-clip-text text-transparent">VIBE CODER.</span>
         </h1>
-        <div className="mt-1 inline-flex items-center gap-2">
-          <span className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400">
-            Frontend & Web Developer
-          </span>
-          <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-600"></span>
-          <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-            Heo Wonseok
-          </span>
+
+        <p className="mt-6 sm:mt-8 text-base sm:text-xl font-medium text-[#99aab5] max-w-2xl leading-relaxed">
+          ...아이디어를 광속으로 코드로 바꾸고, 언제나 즐겁게 협업할 수 있는 곳. 프론트엔드 개발자 <strong className="text-white font-bold">허원석</strong>의 디지털 아지트에 오신 것을 환영합니다!
+        </p>
+
+        {/* Hero CTA Button Pair */}
+        <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="https://github.com/gjdnjstjr"
+            target="_blank"
+            rel="noreferrer"
+            className="px-8 py-4 rounded-2xl sm:rounded-full bg-[#35ed7e] hover:bg-[#2fd972] active:scale-95 text-[#000000] font-black text-base sm:text-lg uppercase tracking-wide transition-all shadow-[0_8px_30px_rgba(53,237,126,0.45)] inline-flex items-center gap-2.5"
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            <span>OPEN GITHUB REPO</span>
+          </a>
+
+          <a
+            href="https://velog.io"
+            target="_blank"
+            rel="noreferrer"
+            className="px-8 py-4 rounded-2xl sm:rounded-full bg-[#5865f2] hover:bg-[#4752c4] active:scale-95 text-white font-black text-base sm:text-lg uppercase tracking-wide transition-all shadow-[0_8px_30px_rgba(88,101,242,0.45)] inline-flex items-center gap-2"
+          >
+            <span>READ DEV JOURNAL</span>
+            <span>↗</span>
+          </a>
         </div>
 
-        {/* Hashtags Section */}
-        <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center gap-1.5 max-w-md">
-          {hashtags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-zinc-100/90 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/50 hover:border-indigo-300 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-default"
-            >
-              {tag}
+        {/* 3D Character Avatar Stage with Discord VC Badge */}
+        <div className="mt-14 relative group">
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#5865f2] via-[#ec48bd] to-[#35ed7e] rounded-[50px] blur-2xl opacity-60 group-hover:opacity-90 transition duration-700"></div>
+          
+          <div className="relative bg-[#1e2353] border-4 border-[#5865f2] rounded-[40px] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#35ed7e] shrink-0 shadow-lg">
+              <Image
+                src="/avatar.jpg"
+                alt="Wonseok Avatar"
+                width={160}
+                height={160}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                priority
+              />
+              <span className="absolute bottom-2 right-2 w-6 h-6 bg-[#35ed7e] border-3 border-[#1e2353] rounded-full flex items-center justify-center">
+                <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
+              </span>
+            </div>
+
+            <div className="text-left flex flex-col items-center sm:items-start">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl sm:text-3xl font-black text-white">허원석</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-[#5865f2] text-[11px] font-extrabold tracking-wider uppercase text-white">
+                  BOT · VIBE CODER
+                </span>
+              </div>
+              <p className="text-sm font-semibold text-[#35ed7e] mt-1">
+                🟢 Playing Next.js 16 (App Router & Turbopack)
+              </p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                <span className="px-3 py-1 rounded-full bg-[#0a0d3a] text-xs font-bold text-white/90">#Frontend</span>
+                <span className="px-3 py-1 rounded-full bg-[#0a0d3a] text-xs font-bold text-white/90">#React19</span>
+                <span className="px-3 py-1 rounded-full bg-[#0a0d3a] text-xs font-bold text-white/90">#TypeScript</span>
+                <span className="px-3 py-1 rounded-full bg-[#0a0d3a] text-xs font-bold text-white/90">#TailwindCSS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. MARQUEE BAND (marquee-band, Blurple #5865f2) */}
+      <div className="w-full bg-[#5865f2] py-4 sm:py-5 overflow-hidden shadow-lg transform -rotate-1">
+        <div className="flex items-center gap-8 whitespace-nowrap font-black text-lg sm:text-2xl tracking-wider uppercase text-white animate-marquee">
+          <span>🎮 BUILD HARD</span>
+          <span>·</span>
+          <span>⚡ SHIP FAST</span>
+          <span>·</span>
+          <span>🔥 VIBE CODING</span>
+          <span>·</span>
+          <span>💎 NEXT.JS 16</span>
+          <span>·</span>
+          <span>👾 LEVEL UP</span>
+          <span>·</span>
+          <span>🚀 REACT 19</span>
+          <span>·</span>
+          <span>🎮 BUILD HARD</span>
+          <span>·</span>
+          <span>⚡ SHIP FAST</span>
+          <span>·</span>
+          <span>🔥 VIBE CODING</span>
+        </div>
+      </div>
+
+      {/* 4. FEATURE PANELS (feature-card-gradient & feature-card-dark) */}
+      <section id="projects" className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-20 sm:py-28 space-y-8">
+        
+        {/* Vibrant Magenta Gradient Feature Card */}
+        <div className="w-full bg-gradient-to-r from-[#ec48bd] via-[#8b5cf6] to-[#5865f2] rounded-[36px] sm:rounded-[48px] p-8 sm:p-14 text-white shadow-[0_20px_60px_rgba(236,72,189,0.3)] flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="max-w-xl">
+            <span className="px-3.5 py-1 rounded-full bg-white/20 text-white font-extrabold text-xs uppercase tracking-wider">
+              FLAGSHIP REPO
             </span>
-          ))}
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight mt-4">
+              MYLINK PORTFOLIO
+            </h2>
+            <p className="mt-4 text-base sm:text-lg font-medium text-white/90 leading-relaxed">
+              모바일, 태블릿, 데스크톱 어디서나 최적의 반응성과 디스코드 스타일의 경쾌한 인터랙션을 자랑하는 개인 링크 & 포트폴리오 플랫폼.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="https://github.com/gjdnjstjr/mylink"
+                target="_blank"
+                rel="noreferrer"
+                className="px-6 py-3 rounded-full bg-white text-[#000000] font-black text-sm uppercase tracking-wide hover:bg-[#35ed7e] transition-all shadow-md"
+              >
+                VIEW ON GITHUB ↗
+              </a>
+            </div>
+          </div>
+
+          {/* Feature Badge Mockup Plate */}
+          <div className="w-full lg:w-96 bg-[#0a0d3a]/80 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-2xl">
+            <div className="flex items-center gap-3 border-b border-white/10 pb-4 mb-4">
+              <div className="w-3 h-3 rounded-full bg-[#ed4245]"></div>
+              <div className="w-3 h-3 rounded-full bg-[#fee75c]"></div>
+              <div className="w-3 h-3 rounded-full bg-[#57f287]"></div>
+              <span className="text-xs font-mono text-white/60 ml-auto">mylink.git</span>
+            </div>
+            <div className="space-y-2.5 font-mono text-xs">
+              <p className="text-[#35ed7e]">$ git status</p>
+              <p className="text-white/80">On branch main: origin/main</p>
+              <p className="text-[#ec48bd]">✨ Features: Discord Edition v2.0</p>
+              <p className="text-[#5865f2]">🚀 Status: Deployed & Ready</p>
+            </div>
+          </div>
         </div>
 
-        {/* Bio Card */}
-        <div className="mt-5 sm:mt-6 px-4 py-3 sm:py-4 rounded-2xl bg-zinc-50/90 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800/80 w-full text-left sm:text-center shadow-xs">
-          <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed break-keep">
-            💡 아이디어를 코드로 실현하고 더 나은 사용자 경험을 고민하는{" "}
-            <strong className="font-semibold text-zinc-900 dark:text-zinc-100 underline decoration-indigo-400/50 decoration-2 underline-offset-2">
-              개발자
-            </strong>
-            입니다. 새로운 기술을 탐구하고 꾸준히 성장하는 과정을 즐깁니다.
-          </p>
-        </div>
-
-        {/* Tech Stacks Section */}
-        <div className="mt-4 sm:mt-5 w-full flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
-          {techStacks.map((tech) => (
-            <span
-              key={tech.name}
-              className={`px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-semibold border ${tech.bg} transition-all hover:scale-105`}
-            >
-              {tech.name}
-            </span>
-          ))}
-        </div>
-
-        {/* Responsive Rich Link Cards Section */}
-        <div className="mt-6 sm:mt-8 w-full flex flex-col gap-2.5 sm:gap-3.5">
-          {links.map((link) => (
+        {/* 2-Column Raised Dark Feature Panels */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          {/* Card 1: Tech Blog Channel */}
+          <div className="bg-[#1e2353] rounded-[36px] p-8 sm:p-10 border border-[#5865f2]/40 shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#ec48bd] flex items-center justify-center text-2xl mb-6 shadow-[0_4px_20px_rgba(236,72,189,0.5)]">
+                📝
+              </div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#ec48bd]">
+                #TECH-BLOG-CHANNEL
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-1">
+                DEV LOGS & LEARNING
+              </h3>
+              <p className="mt-3 text-sm sm:text-base text-[#99aab5] leading-relaxed">
+                새로운 웹 기술을 습득하고 실험한 결과물을 상세히 기록하는 테크 블로그입니다. 프론트엔드 최적화와 아키텍처 고민을 공유합니다.
+              </p>
+            </div>
             <a
-              key={link.title}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="group relative flex items-center justify-between p-3.5 sm:p-4 md:p-4.5 rounded-2xl bg-white/90 dark:bg-zinc-800/70 border border-zinc-200/70 dark:border-zinc-700/60 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-500/50 hover:-translate-y-0.5 active:scale-[0.99] transition-all duration-200 text-left"
+              href="https://velog.io"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 px-6 py-3.5 rounded-2xl bg-[#5865f2] hover:bg-[#4752c4] text-white font-bold text-sm text-center uppercase tracking-wide transition-all"
             >
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0 pr-2">
-                <div
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xs shrink-0 ${link.iconBg} group-hover:scale-105 transition-transform duration-300`}
-                >
-                  {link.icon}
+              VISIT TECH BLOG →
+            </a>
+          </div>
+
+          {/* Card 2: Contact Direct Messages */}
+          <div className="bg-[#1e2353] rounded-[36px] p-8 sm:p-10 border border-[#35ed7e]/40 shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-[#35ed7e] text-[#000000] flex items-center justify-center text-2xl mb-6 shadow-[0_4px_20px_rgba(53,237,126,0.5)]">
+                💬
+              </div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35ed7e]">
+                #DIRECT-MESSAGES
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-1">
+                COFFEE CHAT & COLLAB
+              </h3>
+              <p className="mt-3 text-sm sm:text-base text-[#99aab5] leading-relaxed">
+                새로운 프로젝트 아이디어, 협업 제안, 커피챗 등 언제든 환영합니다. 함께 재미있고 멋진 제품을 만들어봐요!
+              </p>
+            </div>
+            <a
+              href="mailto:contact@example.com"
+              className="mt-8 px-6 py-3.5 rounded-2xl bg-[#35ed7e] hover:bg-[#2fd972] text-[#000000] font-black text-sm text-center uppercase tracking-wide transition-all"
+            >
+              SEND DIRECT EMAIL →
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. INTERACTIVE DISCORD CHAT MOCKUP SECTION */}
+      <section id="chat" className="max-w-4xl mx-auto px-4 sm:px-8 py-12">
+        <div className="bg-[#23272a] rounded-[32px] border border-[#1e2353] shadow-2xl overflow-hidden">
+          {/* Channel Header */}
+          <div className="bg-[#1e2353] px-6 py-4 flex items-center gap-3 border-b border-[#0a0d3a]">
+            <span className="text-2xl text-[#99aab5]">#</span>
+            <div>
+              <h4 className="font-black text-white text-base">general-wonseok</h4>
+              <p className="text-xs text-[#99aab5]">허원석 개발자의 라이브 피드 & 소통 채널</p>
+            </div>
+          </div>
+
+          {/* Messages Feed */}
+          <div className="p-6 space-y-6 max-h-80 overflow-y-auto">
+            {chatMessages.map((msg, idx) => (
+              <div key={idx} className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-[#5865f2]">
+                  <Image
+                    src={msg.avatar}
+                    alt={msg.user}
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                    <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm sm:text-base">
-                      {link.title}
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-white text-sm">{msg.user}</span>
+                    <span className="px-1.5 py-0.2 rounded bg-[#5865f2] text-[10px] font-black uppercase text-white">
+                      {msg.tag}
                     </span>
-                    <span
-                      className={`text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full ${link.badgeColor}`}
-                    >
-                      {link.badge}
-                    </span>
+                    <span className="text-[11px] text-[#99aab5]">{msg.time}</span>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 break-keep line-clamp-1 sm:line-clamp-none">
-                    {link.description}
+                  <p className="text-sm text-white/90 mt-1 leading-relaxed bg-[#1e2353]/50 p-3 rounded-2xl">
+                    {msg.text}
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Arrow Indicator */}
-              <div className="text-zinc-300 dark:text-zinc-600 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-all shrink-0">
-                <svg
-                  className="w-5 h-5 sm:w-6 sm:h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-          ))}
+          {/* Interactive Input Form */}
+          <form onSubmit={handleSendMessage} className="p-4 bg-[#1e2353] border-t border-[#0a0d3a] flex gap-2">
+            <input
+              type="text"
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              placeholder="메시지를 입력해보세요 (예: 화이팅!)"
+              className="flex-1 bg-[#23272a] text-white placeholder-[#72767d] text-sm px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5865f2]"
+            />
+            <button
+              type="submit"
+              className="px-6 py-3 bg-[#5865f2] hover:bg-[#4752c4] text-white font-bold text-sm rounded-xl transition-colors shrink-0"
+            >
+              전송
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* 6. STAT CARDS SECTION (stat-card, Blurple #5865f2 & Black) */}
+      <section id="stats" className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16 sm:py-24">
+        <div className="text-center mb-12">
+          <span className="text-xs font-black uppercase tracking-widest text-[#35ed7e]">
+            DEVELOPER STATS
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black uppercase text-white mt-2">
+            POWERED BY PASSION
+          </h2>
         </div>
 
-        {/* Footer */}
-        <footer className="mt-8 sm:mt-10 pt-4 border-t border-zinc-100 dark:border-zinc-800/80 w-full flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-zinc-400 dark:text-zinc-500 gap-2">
-          <span>© {new Date().getFullYear()} 허원석. All rights reserved.</span>
-          <span className="text-[10px] sm:text-[11px] text-zinc-400/80">
-            Crafted with Next.js & Tailwind CSS
-          </span>
-        </footer>
-      </div>
-    </main>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-[#5865f2] rounded-[32px] p-8 text-center text-white shadow-xl">
+            <div className="text-5xl sm:text-6xl font-black tracking-tight">100%</div>
+            <div className="text-sm font-extrabold uppercase tracking-wider mt-3 text-white/90">
+              COMMITMENT & VIBE
+            </div>
+          </div>
+
+          <div className="bg-[#ec48bd] rounded-[32px] p-8 text-center text-white shadow-xl">
+            <div className="text-5xl sm:text-6xl font-black tracking-tight">24/7</div>
+            <div className="text-sm font-extrabold uppercase tracking-wider mt-3 text-white/90">
+              GROWTH MINDSET
+            </div>
+          </div>
+
+          <div className="bg-[#35ed7e] rounded-[32px] p-8 text-center text-[#000000] shadow-xl">
+            <div className="text-5xl sm:text-6xl font-black tracking-tight">LV.99</div>
+            <div className="text-sm font-black uppercase tracking-wider mt-3 text-black/80">
+              DEVELOPER ENTHUSIASM
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FULL-BLEED CTA BAND (cta-band, Blurple #5865f2) */}
+      <section className="w-full bg-[#5865f2] py-20 sm:py-28 px-4 sm:px-8 text-center text-white relative overflow-hidden">
+        <div className="max-w-3xl mx-auto relative z-10">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
+            READY TO START A NEW QUEST?
+          </h2>
+          <p className="mt-6 text-base sm:text-xl font-medium text-white/90 leading-relaxed">
+            언제든 편하게 연락주세요. 새로운 프로젝트와 협업 기회를 환영합니다!
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="mailto:contact@example.com"
+              className="px-8 py-4 rounded-full bg-[#35ed7e] hover:bg-[#2fd972] active:scale-95 text-[#000000] font-black text-base sm:text-lg uppercase tracking-wide transition-all shadow-xl"
+            >
+              START CONVERSATION
+            </a>
+            <a
+              href="https://github.com/gjdnjstjr"
+              target="_blank"
+              rel="noreferrer"
+              className="px-8 py-4 rounded-full bg-white text-[#5865f2] hover:bg-white/90 active:scale-95 font-black text-base sm:text-lg uppercase tracking-wide transition-all shadow-xl"
+            >
+              EXPLORE GITHUB
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FOOTER: Multi-column + Giant Discord-style Wordmark */}
+      <footer className="bg-[#0a0d3a] border-t border-[#1e2353] pt-16 pb-12 px-4 sm:px-8 lg:px-16 text-white">
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#1e2353]">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-[#5865f2] flex items-center justify-center text-white font-bold">
+                W
+              </div>
+              <span className="font-black text-lg text-white uppercase">
+                HEO WONSEOK PORTFOLIO
+              </span>
+            </div>
+            <div className="flex items-center gap-6 text-sm font-bold text-[#99aab5]">
+              <a href="https://github.com/gjdnjstjr" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
+              <a href="https://velog.io" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Tech Blog</a>
+              <a href="mailto:contact@example.com" className="hover:text-white transition-colors">Email</a>
+            </div>
+          </div>
+
+          {/* Giant Wordmark */}
+          <div className="text-center overflow-hidden select-none">
+            <h1 className="text-[64px] sm:text-[120px] lg:text-[160px] font-black text-white/5 uppercase tracking-tighter leading-none">
+              WONSEOK.GG
+            </h1>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#99aab5]">
+            <p>© {new Date().getFullYear()} 허원석. All rights reserved.</p>
+            <p className="uppercase tracking-wider">DISCORD GAMING-NATIVE DESIGN EDITION</p>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
